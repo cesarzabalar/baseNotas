@@ -1,0 +1,1 @@
+Este es la vista del perfil Alumno por parte del Acudiente
