@@ -65,10 +65,10 @@ $queryAnotaciones = pg_query("SELECT anotacion_grupo.fecha, anotacion_grupo.hora
 
 <div class="row-fluid">
 	<div class="span12">
-         <form method="post">
-         	<textarea rows="5" class="textarea span9" placeholder="Escriba aqui la anotación"></textarea><br />
-            <button class="btn btn-success" type="button">Publicar</button>
-    </form>    
+
+         	<textarea id="txtAnoGrupo" rows="5" class="textarea span9" placeholder="Escriba aqui la anotación"></textarea><br />
+            <div id="btnAnoGrupo" class="btn btn-success">Publicar</div>
+
   </div>
 </div>
 
@@ -88,7 +88,41 @@ $(document).ready(function(e) {
 		
 		$('#contenedorCambiante').html('');
 		$('#contenedorCambiante').load('cargaGrupo.php?'+cadena);
+	
+	});
+	
+	$('#btnAnoGrupo').click(function(e){
+		var descripcion = $('#txtAnoGrupo').val();
 
+		if(descripcion == ''){
+			alert('Por favor escriba la anotación');
+		}else{
+			var cadena = $('#volverGrupo').attr('rel')+'&descripcion='+descripcion;
+			alert(cadena);
+			$.get('modelo/crearAnotacionGrupo.php', cadena, function(respuesta)
+            {
+				if(!respuesta.status){
+					$( "#mensaje2" ).text(respuesta.mensaje);
+					$( "#mensaje2" ).show();
+					$( "#mensaje2" ).dialog({
+						height: 100,
+						modal: true
+					});	
+				}else{
+					$('#contenedorCambiante').html('');
+					$('#contenedorCambiante').load('cargaGrupo.php?'+cadena);
+					
+					$( "#mensaje2" ).text(respuesta.mensaje);
+					$( "#mensaje2" ).show();
+					$( "#mensaje2" ).dialog({
+						height: 100,
+						modal: true
+					});
+				}
+            }, "json"); 	
+		}
+		
+		e.preventDefault();
 	});
 });
 </script>

@@ -87,3 +87,4 @@
     
    <div class="container">
 	 <div id="mensaje" title="Error de Ingreso"></div>
+     <div id="mensaje2" title="Mensaje"></div>

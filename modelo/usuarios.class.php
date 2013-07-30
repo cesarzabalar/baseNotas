@@ -1,12 +1,13 @@
 <?php
 include_once('../librerias/class_conectarPG.php');
-$conexion = new ConexionPGSQL();
 /**
  * Clase para manipular usuarios
  */
-class Usuarios
+class Usuarios extends ConexionPGSQL
 {
-	public function  __construct() {}
+	public function  __construct() {
+
+	}
 	
 	/**
      * Seleccionar usuario a partir de un caracter en nombre o apellido
@@ -46,6 +47,7 @@ class Usuarios
                 '" . $datos['foto_usuarios'] . "')";
         mysql_query($sql);
     }
+	
     /**
      * Actualizar informacion de usuario
      *
@@ -53,6 +55,7 @@ class Usuarios
      * @param int $idUsuario
      */
     public function editarUsuario($datos, $idUsuario){
+		$this->conectar();
         if(isset($datos['nombre_usuario'])){
 
             $sql= "UPDATE usuarios SET nombres='" . $datos['nombre_usuario'] . "'
@@ -60,66 +63,66 @@ class Usuarios
 
         } 
 		
-		elseif (isset($datos['apellido_usuarios'])){
+		elseif (isset($datos['apellido_usuario'])){
 
-            $sql = "UPDATE usuarios SET apellidos = '" . $datos['apellido_usuarios'] . "'
+            $sql = "UPDATE usuarios SET apellidos = '" . $datos['apellido_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
 		
-		elseif (isset($datos['fecha_nacimiento'])){
+		elseif (isset($datos['fecha_usuario'])){
 
-            $sql = "UPDATE usuarios SET fecha_nacimiento = '" . $datos['fecha_nacimiento'] . "'
+            $sql = "UPDATE usuarios SET fecha_nacimiento = '" . $datos['fecha_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
 		
-		elseif (isset($datos['genero'])){
+		elseif (isset($datos['genero_usuario'])){
 
-            $sql = "UPDATE usuarios SET genero = '" . $datos['genero'] . "'
+            $sql = "UPDATE usuarios SET genero = '" . $datos['genero_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
 		
-		elseif (isset($datos['tiporh'])){
+		elseif (isset($datos['rh_usuario'])){
 
-            $sql = "UPDATE usuarios SET tiporh = '" . $datos['tiporh'] . "'
+            $sql = "UPDATE usuarios SET tiporh = '" . $datos['rh_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
 		
-		elseif (isset($datos['direccion'])){
+		elseif (isset($datos['direccion_usuario'])){
 
-            $sql = "UPDATE usuarios SET direccion = '" . $datos['direccion'] . "'
+            $sql = "UPDATE usuarios SET direccion = '" . $datos['direccion_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
 		
-		elseif (isset($datos['telefono'])){
+		elseif (isset($datos['telefono_usuario'])){
 
-            $sql = "UPDATE usuarios SET telefono = '" . $datos['telefono'] . "'
+            $sql = "UPDATE usuarios SET telefono = '" . $datos['telefono_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
 		
-		elseif (isset($datos['celular'])){
+		elseif (isset($datos['celular_usuario'])){
 
-            $sql = "UPDATE usuarios SET celular = '" . $datos['celular'] . "'
+            $sql = "UPDATE usuarios SET celular = '" . $datos['celular_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
 		
-		elseif (isset($datos['fecha_nacimiento'])){
+		elseif (isset($datos['correop_usuario'])){
 
-            $sql = "UPDATE usuarios SET fecha_nacimiento = '" . $datos['fecha_nacimiento'] . "'
+            $sql = "UPDATE usuarios SET correo_personal = '" . $datos['correop_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
 		
-		elseif (isset($datos['correo_personal'])){
+		elseif (isset($datos['correoi_usuario'])){
 
-            $sql = "UPDATE usuarios SET correo_personal = '" . $datos['correo_personal'] . "'
+            $sql = "UPDATE usuarios SET correo_institucional = '" . $datos['correoi_usuario'] . "'
                     WHERE id = '" . $idUsuario . "'";
         }
-		
-		elseif (isset($datos['correo_institucional'])){
-
-            $sql = "UPDATE usuarios SET correo_institucional = '" . $datos['correo_institucional'] . "'
-                    WHERE id = '" . $idUsuario . "'";
-        }
-        mysql_query($sql);
+        
+		if(pg_query($sql)){
+			echo '{"status":1,"mensaje":"Usuario modificado exitosamente"}';	
+		}else{
+			echo '{"status":0,"mensaje":"Error, no se ha podido completar la acción"}';
+		}
+		$this->destruir();
     }
 	
 	public function eliminarUsuario($idUsuario)

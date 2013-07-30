@@ -11,7 +11,7 @@ $opcion = $_GET['opcion'];
  * Opcion 3: Actualizar un usuario.
  * Opción 4: Eliminar usuario.
  */
-switch ($type) {
+switch ($opcion) {
     
     case 1:
         //echo json_encode($usuario->buscarUsuario($_GET['term']));
@@ -22,7 +22,7 @@ switch ($type) {
     break;
 
     case 3:
-        $usuario->editarUsuario($_GET, $_GET['id_usuario']);
+        echo $usuario->editarUsuario($_GET, $_GET['id_usuario']);
     break;
 
     case 4:

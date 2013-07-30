@@ -12,7 +12,7 @@ class ConexionPGSQL
     public $url; //dirección de la conexión que se usara para destruirla mas adelante
  
     //creación del constructor
-    function __construct()
+    public function __construct()
 	{
     }
  
@@ -27,7 +27,7 @@ class ConexionPGSQL
     }
  
     //función que se utilizara al momento de hacer la instancia de la clase
-    function conectar()
+    public function conectar()
 	{
     	$this->cargarValores();
         $this->url=pg_connect($this->conexion);
@@ -35,13 +35,13 @@ class ConexionPGSQL
     }
  
     //función para destruir la conexión.
-    function destruir()
+    public function destruir()
 	{
     	pg_close($this->url);
     }
 	
 	//función para liberar los resultados
-	function liberar($query)
+	public function liberar($query)
 	{
     	pg_free_result($query);
     }

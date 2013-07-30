@@ -46,7 +46,7 @@ $(document).ready(function()
 	
 	/************************ llamado al componente de roles ***********************/
 	$('#cbRol').change(function(){
-            var cadena = $(this).find(':selected').val();;
+            var cadena = $(this).find(':selected').val();
 			var variables = cadena.split("-");
 			
 			if(variables[0] == 1)

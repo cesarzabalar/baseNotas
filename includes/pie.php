@@ -29,6 +29,7 @@
     
     <script src="<?php echo $raiz;?>bootstrap/js/wysihtml5-0.3.0.min.js"></script>
     <script src="<?php echo $raiz;?>bootstrap/js/bootstrap-wysihtml5.js"></script>
+    <script src="<?php echo $raiz;?>js/jquery.ui.datepicker-es.min.js"></script>
 
 
     
